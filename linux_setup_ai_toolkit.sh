@@ -6,12 +6,47 @@
 set -e  # Exit immediately if any command fails
 
 # ============================
+# Variables
+# ============================
+PYTHON_VERSION="3.12.8"
+PYTHON_INSTALL_DIR="$HOME/python3128"
+AI_TOOLKIT_DIR="$HOME/ai-toolkit"
+
+# ============================
+# Download and build Python 3.12.8 locally
+# ============================
+if [ ! -x "$PYTHON_INSTALL_DIR/bin/python3.12" ]; then
+    echo "Downloading and building Python $PYTHON_VERSION..."
+    cd /tmp
+    wget https://www.python.org/ftp/python/$PYTHON_VERSION/Python-$PYTHON_VERSION.tgz
+    tar xvf Python-$PYTHON_VERSION.tgz
+    cd Python-$PYTHON_VERSION
+    ./configure --enable-optimizations --prefix="$PYTHON_INSTALL_DIR"
+    make -j$(nproc)
+    make install
+else
+    echo "Python $PYTHON_VERSION already built locally at $PYTHON_INSTALL_DIR"
+fi
+
+# Make sure this Python is used
+export PATH="$PYTHON_INSTALL_DIR/bin:$PATH"
+echo "Using Python: $(which python3.12)"
+python3.12 --version
+
+# ============================
 # Clone repo and enter folder
 # ============================
-git clone https://github.com/ostris/ai-toolkit.git
-cd ai-toolkit
+if [ ! -d "$AI_TOOLKIT_DIR" ]; then
+    echo "Cloning repository..."
+    git clone https://github.com/ostris/ai-toolkit.git "$AI_TOOLKIT_DIR"
+else
+    echo "Repository already exists at $AI_TOOLKIT_DIR"
+fi
+cd "$AI_TOOLKIT_DIR"
 
+# ============================
 # Delete existing requirements.txt if it exists
+# ============================
 rm -f requirements.txt
 
 # ============================
@@ -60,9 +95,9 @@ triton
 EOF
 
 # ============================
-# Create Python virtual environment
+# Create Python virtual environment using 3.12.8
 # ============================
-python3 -m venv venv
+$PYTHON_INSTALL_DIR/bin/python3.12 -m venv venv
 
 # Activate the virtual environment
 source venv/bin/activate
@@ -85,7 +120,6 @@ pip install --upgrade git+https://github.com/huggingface/diffusers.git
 # ============================
 # Install Node/npm locally inside venv using nvm
 # ============================
-# Download and install nvm (Node Version Manager)
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.6/install.sh | bash
 
 # Load nvm in current shell
@@ -125,7 +159,7 @@ mkdir -p datasets
 # Final message
 # ============================
 echo
-echo "Thank you for using my installer! Everything is now local (Python + Node/npm)."
+echo "Thank you for using my installer! Everything is now local (Python 3.12.8 + Node/npm)."
 echo "To start the UI, run:"
 echo "./start_training.sh"
 echo
