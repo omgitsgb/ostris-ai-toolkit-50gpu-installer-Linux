@@ -1,50 +1,57 @@
 # AI-Toolkit Installer (Linux, Fully Local)
 
-This repository contains a **fully local Linux installer** that builds a complete AI toolkit from scratch, including:
+## 🧠 What This Script Does (READ THIS FIRST)
 
-- Python 3.12.8 (built from source)
-- CUDA-enabled PyTorch
-- AI-Toolkit + dependencies
-- Node.js (via nvm)
-- Web UI launcher
-- FFmpeg + PyAV support (for video + diffusion features)
+This script builds a **fully isolated, GPU-accelerated AI environment from scratch** on Linux specifically for the **Ostris AI Toolkit**.
+
+It does **everything automatically**, including:
+
+- Compiles and installs **Python 3.12.8 from source** (no system Python conflicts)
+- Creates a **clean virtual environment**
+- Installs **CUDA-enabled PyTorch (12.8)** for GPU acceleration
+- Installs all dependencies required for the **Ostris AI Toolkit**
+- Fixes common breakages (**pkg_resources, Diffusers, LTX2, PyAV**)
+- Installs **FFmpeg + PyAV** for video/export support
+- Installs **Node.js 20 locally** (via nvm) for the UI
+- Sets up a **web-based interface** ready to run
+
+👉 End result:  
+You get a **fully local AI lab environment** for the **Ostris AI Toolkit**, ready for training and managing models — all on your own GPU, no cloud required.
 
 ---
 
 ## 🔥 Features
 
-- ✅ Builds **Python 3.12.8 from source** (no system conflicts)
-- ✅ Creates isolated **virtual environment**
-- ✅ Fixes `pkg_resources` compatibility (pins `setuptools<82`)
-- ✅ Installs **CUDA 12.8 PyTorch**
-- ✅ Installs all required AI dependencies
-- ✅ Fixes **Diffusers + LTX2 issues**
-- ✅ Installs **FFmpeg + PyAV** (required for video/export features)
-- ✅ Installs **Node.js 20 locally** using `nvm`
-- ✅ Generates `start_training.sh` launcher
-- ✅ Creates `datasets/` folder
+- ✅ Builds **Python 3.12.8 from source** (no system conflicts)  
+- ✅ Creates isolated **virtual environment**  
+- ✅ Fixes `pkg_resources` compatibility (pins `setuptools<82`)  
+- ✅ Installs **CUDA 12.8 PyTorch**  
+- ✅ Installs all required **Ostris AI Toolkit dependencies**  
+- ✅ Fixes **Diffusers + LTX2 issues**  
+- ✅ Installs **FFmpeg + PyAV**  
+- ✅ Installs **Node.js 20 locally** using `nvm`  
+- ✅ Generates `start_training.sh` launcher  
+- ✅ Creates `datasets/` folder  
 
 ---
 
 ## ⚙️ Requirements
 
-- Linux (Ubuntu recommended)
-- NVIDIA 50 Series GPU (for CUDA acceleration)
-- Internet connection
-- sudo privileges
+- Linux (Ubuntu recommended)  
+- NVIDIA 50 Series GPU  
+- Internet connection  
+- sudo privileges  
 
 ---
 
 ## 🚀 Installation
 
 ### 1. Make script executable
-
 ```bash
 chmod +x linux_setup_ai_toolkit.sh
 ```
 
 ### 2. Run installer
-
 ```bash
 ./linux_setup_ai_toolkit.sh
 ```
@@ -53,26 +60,22 @@ chmod +x linux_setup_ai_toolkit.sh
 
 ## ▶️ Running the UI
 
-After installation completes:
-
+After installation:
 ```bash
 ./start_training.sh
 ```
 
 ---
 
-## 🧠 What This Script Actually Does
+## 🧠 What This Script Does (Detailed)
 
 ### Python (Fully Controlled)
-- Downloads and builds **Python 3.12.8**
-- Installs it to:
-
+- Downloads and builds **Python 3.12.8**  
+- Installs to:
 ```bash
 $HOME/python3128
 ```
-
 - Creates venv using:
-
 ```bash
 $HOME/python3128/bin/python3.12
 ```
@@ -81,16 +84,11 @@ $HOME/python3128/bin/python3.12
 
 ### Fixes `pkg_resources` (CRITICAL)
 
-Python 3.12 + modern setuptools breaks older tooling.
-
-This script **forces compatibility**:
-
 ```bash
 setuptools < 82
 ```
 
-Then verifies:
-
+Verify:
 ```bash
 python -c "import pkg_resources"
 ```
@@ -99,21 +97,15 @@ python -c "import pkg_resources"
 
 ### GPU Setup
 
-Installs:
-
 ```bash
 torch==2.7.1+cu128
 ```
-
-With CUDA 12.8 support.
 
 ---
 
 ### Fixes Diffusers / LTX2 Errors
 
-- Installs latest dev version of diffusers
-- Prevents:
-
+Prevents:
 ```
 Diffusers is out of date
 ```
@@ -122,26 +114,17 @@ Diffusers is out of date
 
 ### Fixes PyAV (VIDEO / EXPORT ERRORS)
 
-Installs system + Python dependencies:
-
 ```bash
 sudo apt install ffmpeg libavcodec-dev libavformat-dev libavdevice-dev libavutil-dev
 pip install av
-```
-
-Prevents errors like:
-
-```
-PyAV is required to use LTX 2.0 video export utilities
 ```
 
 ---
 
 ### Node.js (Local Only)
 
-- Installed via `nvm`
-- Uses Node 20
-- No system-wide pollution
+- Installed via `nvm`  
+- Uses Node 20  
 
 ---
 
@@ -149,60 +132,52 @@ PyAV is required to use LTX 2.0 video export utilities
 
 ```
 ai-toolkit/
-├── venv/                  # Python environment
-├── ui/                    # Web UI
-├── datasets/              # Your training data
-├── start_training.sh      # Launcher
+├── venv/
+├── ui/
+├── datasets/
+├── start_training.sh
 ```
 
 ---
 
 ## ⚠️ Notes
 
-- Everything installs **locally** (no system pollution)
-- Python is **fully isolated**
-- Uses **explicit paths** (no PATH issues)
-- Safe to re-run (idempotent-ish, but clean installs recommended)
+- Fully local install (no system pollution)  
+- Isolated Python environment  
+- Explicit paths (no PATH issues)  
+- Fully compatible with **Ostris AI Toolkit**  
 
 ---
 
 ## 🛠 Troubleshooting
 
-### Check Python version
-
+### Check Python
 ```bash
 ~/python3128/bin/python3.12 --version
 ```
 
-### Check venv Python
-
+### Activate venv
 ```bash
 source ~/ai-toolkit/venv/bin/activate
-python --version
 ```
 
 ### Verify pkg_resources
-
 ```bash
 python -c "import pkg_resources"
 ```
 
 ### Verify PyAV
-
 ```bash
 python -c "import av"
 ```
 
 ---
 
-## 🧪 If Something Breaks
-
-Rebuild clean:
+## 🧪 Clean Reinstall
 
 ```bash
 rm -rf ~/ai-toolkit
 rm -rf ~/python3128
 ```
 
-Then rerun installer.
-
+Then rerun the installer.
