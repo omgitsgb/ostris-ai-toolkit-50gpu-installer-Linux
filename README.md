@@ -28,8 +28,8 @@ This repository contains a **fully local Linux installer** that builds a complet
 
 ## ⚙️ Requirements
 
-- Linux (Ubuntu/Debian recommended)
-- NVIDIA GPU (for CUDA acceleration)
+- Linux (Ubuntu recommended)
+- NVIDIA 50 Series GPU (for CUDA acceleration)
 - Internet connection
 - sudo privileges
 
