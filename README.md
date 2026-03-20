@@ -1,4 +1,7 @@
-https://youtu.be/OmUEqMGC2X4
+## Click To Watch The Video Breakdown:
+[![Watch the video](https://imgur.com/a/sFiYvLt)](https://youtu.be/OmUEqMGC2X4)
+
+
 
 
 # AI-Toolkit Installer (Linux, Fully Local)
