@@ -145,7 +145,7 @@ ai-toolkit/
 - Fully local install (no system pollution)  
 - Isolated Python environment  
 - Explicit paths (no PATH issues)  
-- Fully compatible with **Ostris AI Toolkit**  
+- For **Ostris AI Toolkit**  on Linux
 
 ---
 
