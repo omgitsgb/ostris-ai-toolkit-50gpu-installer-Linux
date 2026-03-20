@@ -1,5 +1,5 @@
 ## Click To Watch The Video Breakdown:
-[![Watch the video](https://imgur.com/a/sFiYvLt)](https://youtu.be/OmUEqMGC2X4)
+[![Watch the video](https://i.imgur.com/hou8apR.png)](https://youtu.be/OmUEqMGC2X4)
 
 
 
