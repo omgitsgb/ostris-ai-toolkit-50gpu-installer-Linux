@@ -1,3 +1,6 @@
+https://youtu.be/OmUEqMGC2X4
+
+
 # AI-Toolkit Installer (Linux, Fully Local)
 
 ## 🧠 What This Script Does (READ THIS FIRST)
